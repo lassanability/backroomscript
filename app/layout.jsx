@@ -107,12 +107,6 @@ export default function RootLayout({ children }) {
       >
         <JsonLd data={siteSchema} />
 
-        <Script
-          id="paystack-js"
-          strategy="lazyOnload"
-          src="https://js.paystack.co/v1/inline.js"
-        />
-
         {GA_ID && (
           <>
             <Script

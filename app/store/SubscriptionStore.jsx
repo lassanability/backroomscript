@@ -164,7 +164,6 @@ export const useSubscriptionStore = create((set, get) => ({
       if (data.status === "success") {
         set({ paymentLoading: false });
 
-        // Bank requires 2FA before the charge completes
         if (data.data.requiresAction) {
           return {
             success: true,

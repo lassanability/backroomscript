@@ -79,16 +79,17 @@ export default function Dashboard() {
   const getTierInfo = useSubscriptionStore((state) => state.getTierInfo);
   const getTierLevel = useSubscriptionStore((state) => state.getTierLevel);
   const initializePayment = useSubscriptionStore((state) => state.initializePayment);
-  const paymentLoading = useSubscriptionStore((state) => state.paymentLoading);
   const verifyPayment = useSubscriptionStore((state) => state.verifyPayment);
   const verifyingPayment = useSubscriptionStore((state) => state.verifyingPayment);
-  const chargeWithSavedCard = useSubscriptionStore((state) => state.chargeWithSavedCard);
   const getSubscription = useSubscriptionStore((state) => state.getSubscription);
+  const chargeWithSavedCard = useSubscriptionStore((state) => state.chargeWithSavedCard);
+  const paymentLoading = useSubscriptionStore((state) => state.paymentLoading);
 
   const cards = useCardStore((state) => state.cards);
   const getCards = useCardStore((state) => state.getCards);
   const verifyCardAuthorization = useCardStore((state) => state.verifyCardAuthorization);
   const verifyingCard = useCardStore((state) => state.verifyingCard);
+
 
   const tiers = useMemo(() => Object.values(tiersObject), [tiersObject]);
 
@@ -570,6 +571,7 @@ export default function Dashboard() {
         {activeTab === "success-stories" && <SuccessStorySubmission />}
 
         {activeTab === "payment-methods" && <PaymentMethods />}
+
       </main>
 
       {selectedTemplate && (

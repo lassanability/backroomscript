@@ -245,8 +245,8 @@ export default function ContactUs() {
             their 1-on-1 mentorship session via email or WhatsApp
           </li>
           <li>
-            <strong>Payment:</strong> We accept M-Pesa, bank transfers, Visa,
-            Mastercard, and Airtel Money through Paystack
+            <strong>Payment:</strong> We accept M-Pesa, Airtel Money, Visa
+            and Mastercard through Paystack
           </li>
         </ul>
       </div>

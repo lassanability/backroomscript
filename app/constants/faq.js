@@ -2,7 +2,7 @@ export const FAQ_DATA = [
   {
     question: "How do I get started with BackroomScript?",
     answer:
-      "Create your free account, choose a plan, and start learning straight away. Pay securely through Paystack with M-Pesa or card when you upgrade.",
+      "Create your free account, choose a plan, and start learning straight away. Pay securely through Paystack with M-Pesa, Airtel Money or card when you upgrade.",
   },
   {
     question: "How do I get access to jobs?",
@@ -17,7 +17,7 @@ export const FAQ_DATA = [
   {
     question: "What payment methods do you accept?",
     answer:
-      "We accept M-Pesa, Airtel Money, credit and debit cards, and bank transfers through Paystack. All transactions are encrypted.",
+      "We accept M-Pesa, Airtel Money, and debit and credit cards through Paystack. All transactions are encrypted.",
   },
   {
     question: "Is support available?",

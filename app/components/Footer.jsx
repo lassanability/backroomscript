@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import VisaCard from "@/public/assets/visa.png";
 import MpesaLogo from "@/public/assets/mpesa.png";
-import MasterCard from "@/public/assets/masterCard.png";
 import AirtelMoney from "@/public/assets/airtelMoney.png";
+import VisaCard from "@/public/assets/visa.png";
+import MasterCard from "@/public/assets/masterCard.png";
 import styles from "@/app/style/footer.module.css";
 import { useCommunityStore } from "@/app/store/CommunityStore";
 import { FaWhatsapp, FaTiktok, FaInstagram } from "react-icons/fa";

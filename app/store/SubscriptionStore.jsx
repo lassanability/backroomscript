@@ -83,6 +83,19 @@ export const useSubscriptionStore = create((set, get) => ({
   },
   pricingLoaded: false,
   pricingFetching: false,
+  billing: "monthly",
+  provider: null,
+
+  setBilling: (billing) => set({ billing }),
+
+  // Same tier on a different billing period is a switch, not the current plan.
+  isCurrentPlan: (tierId) => {
+    const { currentTier } = useAuthStore.getState();
+    const { provider, billing, currentSubscription } = get();
+    if (currentTier !== tierId) return false;
+    if (provider !== "whop" || tierId === "starter") return true;
+    return (currentSubscription?.interval ?? "monthly") === billing;
+  },
 
   getSubscription: async () => {
     try {
@@ -126,7 +139,7 @@ export const useSubscriptionStore = create((set, get) => ({
           "Content-Type": "application/json",
           ...getAuthHeader(),
         },
-        body: JSON.stringify({ tier }),
+        body: JSON.stringify({ tier, interval: get().billing }),
       });
 
       const data = await response.json();
@@ -269,9 +282,11 @@ export const useSubscriptionStore = create((set, get) => ({
         set((state) => ({
           tiers: {
             ...state.tiers,
-            pro: { ...state.tiers.pro, price: pricing.pro.price },
-            elite: { ...state.tiers.elite, price: pricing.elite.price }
+            starter: { ...state.tiers.starter, currency: pricing.starter?.currency ?? state.tiers.starter.currency },
+            pro: { ...state.tiers.pro, price: pricing.pro.price, yearlyPrice: pricing.pro.yearlyPrice ?? null, currency: pricing.pro.currency ?? state.tiers.pro.currency },
+            elite: { ...state.tiers.elite, price: pricing.elite.price, yearlyPrice: pricing.elite.yearlyPrice ?? null, currency: pricing.elite.currency ?? state.tiers.elite.currency }
           },
+          provider: pricing.provider ?? "paystack",
           pricingLoaded: true,
           pricingError: null
         }));

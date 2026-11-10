@@ -23,13 +23,18 @@ export default function PricingGrid({
   headingLevel = "h2",
 }) {
   const fetchPricing = useSubscriptionStore((state) => state.fetchPricing);
+  const billing = useSubscriptionStore((state) => state.billing);
+  const setBilling = useSubscriptionStore((state) => state.setBilling);
+  const provider = useSubscriptionStore((state) => state.provider);
+  const isCurrentPlan = useSubscriptionStore((state) => state.isCurrentPlan);
+  const hasYearly = tiers.some((tier) => tier.yearlyPrice > 0);
 
   useEffect(() => {
     fetchPricing();
   }, [fetchPricing]);
 
   const isPopular = (tierId) => tierId === "pro";
-  const isCurrent = (tierId) => currentTier === tierId;
+  const isCurrent = (tierId) => currentTier === tierId && isCurrentPlan(tierId);
   const isLocked = (tierId) => {
     if (!getTierLevel || !currentTier) return false;
     return getTierLevel(tierId) < getTierLevel(currentTier);
@@ -52,6 +57,27 @@ export default function PricingGrid({
         </div>
       )}
 
+      {hasYearly && (
+        <div className={styles.billingToggle} role="group" aria-label="Billing period">
+          <button
+            type="button"
+            className={billing === "monthly" ? styles.billingActive : ""}
+            aria-pressed={billing === "monthly"}
+            onClick={() => setBilling("monthly")}
+          >
+            Monthly
+          </button>
+          <button
+            type="button"
+            className={billing === "yearly" ? styles.billingActive : ""}
+            aria-pressed={billing === "yearly"}
+            onClick={() => setBilling("yearly")}
+          >
+            Yearly <span className={styles.billingSave}>2 months free</span>
+          </button>
+        </div>
+      )}
+
       <div className={`${styles.grid} ${styles[variant]}`}>
         {tiers.map((tier) => (
           <PricingCard
@@ -63,6 +89,7 @@ export default function PricingGrid({
             onSelect={onSelectTier}
             loading={loading === tier.id}
             variant={variant}
+            billing={hasYearly ? billing : "monthly"}
           />
         ))}
       </div>
@@ -80,7 +107,7 @@ export default function PricingGrid({
             <LockIcon />
             <div>
               <strong>Secure Payment</strong>
-              <p>Protected by Paystack with M-Pesa support</p>
+              <p>Protected by {provider === "whop" ? "Whop" : "Paystack"} with M-Pesa support</p>
             </div>
           </div>
         </div>

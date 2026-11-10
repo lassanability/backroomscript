@@ -19,7 +19,12 @@ export default function PricingCard({
   onSelect,
   loading = false,
   variant = "default",
+  billing = "monthly",
 }) {
+  const yearly = billing === "yearly" && tier.yearlyPrice > 0;
+  const price = yearly ? tier.yearlyPrice : tier.price;
+  const yearlySaving = yearly && tier.price > 0 ? Math.round(tier.price * 12 - tier.yearlyPrice) : 0;
+
   const getTierIcon = () => {
     switch (tier.id) {
       case "starter":
@@ -86,15 +91,19 @@ export default function PricingCard({
         <div className={styles.price}>
           <span className={styles.currency}>{tier.currency}</span>
           <span className={styles.amount}>
-            {tier.price != null && tier.price > 0
-              ? tier.price.toLocaleString()
+            {price != null && price > 0
+              ? price.toLocaleString()
               : tier.id === "starter"
               ? "Free"
               : <LoadingLogo/>}
           </span>
         </div>
-        {tier.price > 0 && variant !== "compact" && (
-          <span className={styles.priceNote}>Monthly payment</span>
+        {price > 0 && variant !== "compact" && (
+          <span className={styles.priceNote}>
+            {yearly
+              ? `per year${yearlySaving > 0 ? `, save ${tier.currency}${yearlySaving.toLocaleString()}` : ""}`
+              : "per month"}
+          </span>
         )}
       </div>
 

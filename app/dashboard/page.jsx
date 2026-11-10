@@ -294,7 +294,7 @@ export default function Dashboard() {
       return;
     }
 
-    if (currentTier === tier.id) {
+    if (useSubscriptionStore.getState().isCurrentPlan(tier.id)) {
       toast.info(`You're already on the ${tier.name} tier`);
       return;
     }
@@ -307,7 +307,8 @@ export default function Dashboard() {
       return;
     }
 
-    if (cards.length > 0) {
+    // Saved cards only work with Paystack; Whop collects payment on its own checkout.
+    if (cards.length > 0 && useSubscriptionStore.getState().provider !== "whop") {
       setPendingTier(tier);
       setShowCardPicker(true);
       return;

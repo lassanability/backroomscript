@@ -31,6 +31,45 @@
     gap: var(--spacing-lg);
   }
 
+  .billingToggle {
+    display: flex;
+    align-self: center;
+    gap: 4px;
+    padding: 4px;
+    background: var(--light-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    box-shadow: var(--glass-shadow-sm);
+  }
+
+  .billingToggle button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 8px var(--spacing-lg);
+    color: var(--warm-gray);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+  }
+
+  .billingToggle button.billingActive {
+    color: var(--light-color);
+    background: var(--primary-color);
+  }
+
+  .billingSave {
+    padding: 2px 8px;
+    color: var(--secondary-hover-color);
+    background: var(--secondary-lighter-color);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+  }
+
   .footer {
     display: flex;
     flex-direction: column;

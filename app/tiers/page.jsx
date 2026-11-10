@@ -39,7 +39,7 @@ export default function TiersPage() {
       return;
     }
 
-    if (currentTier === tier.id) {
+    if (useSubscriptionStore.getState().isCurrentPlan(tier.id)) {
       toast.info(`You're already on the ${tier.name} tier`);
       return;
     }

@@ -31,7 +31,7 @@ export default function PricingSection() {
       return;
     }
 
-    if (currentTier === tier.id) {
+    if (useSubscriptionStore.getState().isCurrentPlan(tier.id)) {
       toast.info(`You're already on the ${tier.name} plan!`);
       return;
     }
